@@ -72,11 +72,11 @@ export class Home extends React.Component {
                     </div>
                     <Footer className="footer"/>
                 </TabPane>
-                <TabPane tab="Ship" key="2">Content of Tab Pane 2</TabPane>
+                <TabPane tab="Ship" key="2">Ship</TabPane>
                 <TabPane tab="Track" key="3">
                     <Track />
                 </TabPane>
-                <TabPane tab="History" key="4">Content of Tab Pane 4</TabPane>
+                <TabPane tab="History" key="4">History</TabPane>
             </Tabs>
 
             
