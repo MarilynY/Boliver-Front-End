@@ -2,10 +2,15 @@ import React from 'react';
 import { Tabs } from 'antd';
 import { Footer } from './Footer.js';
 import { Track } from './Track.js';
-
-
+import { CreateSearchForm } from './SearchRoutes.js';
+import { OrderHistory } from './OrderHistory';
+//import { RoutesRes } from './RoutesRes';
 
 export class Home extends React.Component {
+
+    getFormRef = (formInstance) => {
+        this.form = formInstance;
+    }
 
     render() {
         const TabPane = Tabs.TabPane;
@@ -72,11 +77,19 @@ export class Home extends React.Component {
                     </div>
                     <Footer className="footer"/>
                 </TabPane>
-                <TabPane tab="Ship" key="2">Content of Tab Pane 2</TabPane>
+                
+                <TabPane tab="Ship" key="2"> 
+                    <CreateSearchForm ref ={this.getFormRef} />
+                    {/* <RoutesRes /> */}
+                </TabPane>
+
                 <TabPane tab="Track" key="3">
                     <Track />
                 </TabPane>
-                <TabPane tab="History" key="4">Content of Tab Pane 4</TabPane>
+
+                <TabPane tab="History" key="4">
+                    <OrderHistory />
+                </TabPane>
             </Tabs>
 
             
