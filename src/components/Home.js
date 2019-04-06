@@ -4,7 +4,6 @@ import { Footer } from './Footer.js';
 import { Track } from './Track.js';
 import { CreateSearchForm } from './SearchRoutes.js';
 import { OrderHistory } from './OrderHistory';
-//import { RoutesRes } from './RoutesRes';
 
 export class Home extends React.Component {
 
@@ -80,7 +79,6 @@ export class Home extends React.Component {
                 
                 <TabPane tab="Ship" key="2"> 
                     <CreateSearchForm ref ={this.getFormRef} />
-                    {/* <RoutesRes /> */}
                 </TabPane>
 
                 <TabPane tab="Track" key="3">
