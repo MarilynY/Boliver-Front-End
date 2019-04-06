@@ -1,17 +1,16 @@
 import React from 'react';
-import {Spin} from 'antd';
+import { Spin, List, Avatar } from 'antd';
 import { TOKEN_KEY, API_ROOT, AUTH_HEADER } from '../constants.js';
 
-export class OrderHistory extends React.Component{
+export class OrderHistory extends React.Component {
     state = {
-        error : '',
-        isLoadingOrders : true,
-        orders : [],
+        error: '',
+        isLoadingOrders: true,
+        orders: [],
     }
+    
     componentDidMount() {
-
         this.loadOrderHistory();
-
     }
 
     loadOrderHistory = () => {
@@ -32,7 +31,7 @@ export class OrderHistory extends React.Component{
             .then((data) => {
                 this.setState({
                     isLoadingOrders: false,
-                    orders : data? data:[],
+                    orders: data ? data : [],
                 })
                 console.log(this.state.orders);
             })
@@ -41,33 +40,47 @@ export class OrderHistory extends React.Component{
                     isLoadingOrders: false,
                     error: e.message,
                 })
-            })   
+            })
     }
 
-    getHistoryOrders = () =>{
-        const { error, orders, isLoadingOrders} = this.state;
+    getHistoryOrders = () => {
+        const { error, orders, isLoadingOrders } = this.state;
 
         if (error) {
             return error;
         } else if (isLoadingOrders) {
             return <Spin tip="Loading history order ... " />;
-        // } else if (posts && posts.length > 0) {
-        //     const images = posts.map(({ user, url, message }) => ({
-        //         user: user,
-        //         src: url,
-        //         thumbnail: url,
-        //         caption: message,
-        //         thumbnailWidth: 400,
-        //         thumbnailHeight: 300
-        //     }));
-
-        //     return <Gallery images={images} />;
+        } else if (orders && orders.length > 0) {
+            return (<List 
+                itemLayout="vertical"
+                size="large"
+                pagination={{
+                    onChange: (page) => {
+                        console.log(page);
+                    },
+                    pageSize: 10,
+                }}
+                dataSource={orders}
+                renderItem={item => (
+                    <List.Item className = "OrderHistory"
+                        key={item.order_id}
+                    >
+                        <List.Item.Meta
+                            avatar={<Avatar src={require("../assets/images/imagebox.png")} alt="imagebox" />}
+                            title={<div>Order ID:  {item.order_id}</div>}
+                            description={
+                            <div><b>From: </b>{item.origin} <b>to : </b>{item.destination} <b>receiver: </b> {item.receiver}</div>
+                        }
+                        />
+                        {item.content}
+                    </List.Item>
+                )}  /> );
         } else {
             return "No History Orders.";
         }
     }
 
-    render(){
+    render() {
         return (
             <div>
                 {this.getHistoryOrders()}

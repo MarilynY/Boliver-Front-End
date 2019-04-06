@@ -12,7 +12,10 @@ class App extends Component {
 
   //callback function 1
   handleLogin = (token) => {
-    this.setState({ isLoggedIn: true })
+    this.setState({ isLoggedIn: true });
+    console.log(token);
+    
+    console.log(token);
     localStorage.setItem(TOKEN_KEY, token)
   }
 
