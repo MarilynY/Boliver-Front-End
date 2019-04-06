@@ -15,4 +15,5 @@
 }
 .list {
     grid-area: list;
+    text-align: left;
 }

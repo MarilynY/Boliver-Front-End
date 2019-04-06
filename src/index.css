@@ -8,6 +8,7 @@
 @import 'styles/Footer.css';
 @import 'styles/Track.css';
 @import 'styles/OrderHistory.css';
+@import 'styles/HistoryFrame.css';
 
 body {
   margin: 0;
