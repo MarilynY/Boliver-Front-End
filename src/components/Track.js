@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, Avatar } from 'antd';
+import { Footer } from './Footer.js';
 //import { TOKEN_KEY, AUTH_HEADER, API_ROOT } from '../constants';
 
 export class Track extends React.Component {
@@ -21,6 +22,7 @@ export class Track extends React.Component {
             }
           ];
         return (
+          <div>
             <div className="track">
                 <List className="list"
                     itemLayout="horizontal"
@@ -37,6 +39,8 @@ export class Track extends React.Component {
                     )}
                 />
             </div>
+            <Footer className="footer"/>
+          </div>
         )
     }
 }

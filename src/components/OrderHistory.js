@@ -1,6 +1,7 @@
 import React from 'react';
 import { Spin, List, Avatar } from 'antd';
 import { TOKEN_KEY, API_ROOT, AUTH_HEADER } from '../constants.js';
+import { Footer } from './Footer.js';
 
 export class OrderHistory extends React.Component {
     state = {
@@ -90,6 +91,7 @@ export class OrderHistory extends React.Component {
         return (
             <div>
                 {this.getHistoryOrders()}
+                <Footer className="footer"/>
             </div>
         )
     }
