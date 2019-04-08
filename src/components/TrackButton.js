@@ -17,6 +17,12 @@ export class TrackButton extends React.Component {
         this.setState({ visible: false });
     }
 
+    handleConfirmOrder = () => {
+        this.setState({ visible: false });
+
+        /**fire API -- confirmorder */
+    }
+
     render() {
         const { visible } = this.state;
         return (
@@ -30,6 +36,7 @@ export class TrackButton extends React.Component {
                 onCancel={this.handleClose}
                 footer={[
                     <Button key="back" onClick={this.handleClose}>Close</Button>,
+                    <Button key="confirm" onClick={this.handleConfirmOrder}>Comfirm Order</Button>,
                 ]}
             >
                 <TrackTimeline />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin, List, Avatar, Empty } from 'antd';
+import { Spin, List, Avatar } from 'antd';
 import { TOKEN_KEY, API_ROOT, AUTH_HEADER } from '../constants.js';
 
 export class OrderHistory extends React.Component {
@@ -8,7 +8,7 @@ export class OrderHistory extends React.Component {
         isLoadingOrders: true,
         orders: [],
     }
-
+    
     componentDidMount() {
         this.loadOrderHistory();
     }
@@ -51,7 +51,7 @@ export class OrderHistory extends React.Component {
         } else if (isLoadingOrders) {
             return <Spin tip="Loading history order ... " />;
         } else if (orders && orders.length > 0) {
-            return (<List
+            return (<List 
                 itemLayout="vertical"
                 size="large"
                 pagination={{
