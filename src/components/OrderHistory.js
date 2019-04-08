@@ -1,5 +1,5 @@
 import React from 'react';
-import { Spin, List, Avatar } from 'antd';
+import { Spin, List, Avatar, Empty } from 'antd';
 import { TOKEN_KEY, API_ROOT, AUTH_HEADER } from '../constants.js';
 
 export class OrderHistory extends React.Component {
@@ -8,7 +8,7 @@ export class OrderHistory extends React.Component {
         isLoadingOrders: true,
         orders: [],
     }
-    
+
     componentDidMount() {
         this.loadOrderHistory();
     }
@@ -51,7 +51,7 @@ export class OrderHistory extends React.Component {
         } else if (isLoadingOrders) {
             return <Spin tip="Loading history order ... " />;
         } else if (orders && orders.length > 0) {
-            return (<List 
+            return (<List
                 itemLayout="vertical"
                 size="large"
                 pagination={{
@@ -62,21 +62,21 @@ export class OrderHistory extends React.Component {
                 }}
                 dataSource={orders}
                 renderItem={item => (
-                    <List.Item className = "OrderHistory"
+                    <List.Item className="OrderHistory"
                         key={item.order_id}
+                        extra={<img width={100} alt="delivered" src={require('../assets/images/delivered.jpeg')} />}
                     >
                         <List.Item.Meta
                             avatar={<Avatar src={require("../assets/images/imagebox.png")} alt="imagebox" />}
                             title={<div>Order ID:  {item.order_id}</div>}
                             description={
-                            <div><b>From: </b>{item.origin} <b>to : </b>{item.destination} <b>receiver: </b> {item.receiver}</div>
-                        }
+                                <div><b>From: </b>{item.origin} <b>to : </b>{item.destination} <b>receiver: </b> {item.receiver}</div>
+                            }
                         />
-                        {item.content}
                     </List.Item>
-                )}  /> );
+                )} />);
         } else {
-            return "No History Orders.";
+            return <Empty description={"No Order"} />;
         }
     }
 
