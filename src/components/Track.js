@@ -103,8 +103,10 @@ export class Track extends React.Component {
                                         {/* {item.orderStatus == 0 ? "Delivered" : "On the way" } */}
                                         <b>Ship from: </b>{item.sender} <br />
                                         <b className="spacer1"></b>{item.origin} <br />
-                                        <b>Ship &nbsp; &nbsp; &nbsp;to: </b>{item.receiver} <br /> 
+                                        <b>Ship to: </b> &nbsp; &nbsp; &nbsp;{item.receiver} <br /> 
                                         <b className="spacer2"></b>{item.destination} <br />
+                                        {/* <b>Ship &nbsp; &nbsp; &nbsp;to: </b>{item.receiver} <br /> 
+                                        <b className="spacer2"></b>{item.destination} <br /> */}
                                     </div> 
                                 }
                                 />
