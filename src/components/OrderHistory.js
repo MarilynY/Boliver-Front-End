@@ -43,8 +43,8 @@ export class OrderHistory extends React.Component {
             })
     }
 
-    convertTime = (time) =>{
-        return time.slice(0,4)+'/'+time.slice(4,6)+'/'+time.slice(6,8)+' ' +time.slice(8,10)+':'+time.slice(10,12)+':'+time.slice(12,14)
+    convertTime = (time) => {
+        return time.slice(0, 4) + '/' + time.slice(4, 6) + '/' + time.slice(6, 8) + ' ' + time.slice(8, 10) + ':' + time.slice(10, 12) + ':' + time.slice(12, 14)
     }
 
     getHistoryOrders = () => {
@@ -99,7 +99,17 @@ export class OrderHistory extends React.Component {
                                             <div className='form-entry-right'>{this.convertTime(item.create_time)}</div>
                                         </div>
                                         <div className="form-entry">
-                                            <div className='form-entry-left'>Complite Time: </div>
+                                            <div className='form-entry-left'>Order Status:</div>
+                                            {
+                                                item.orderStatus === '0' ? 
+                                                (<div className='form-entry-right'>Completed</div>) : 
+                                                (<div className='form-entry-right'>Canceled</div>)
+                                            }
+                                        </div>
+                                        <div className="form-entry">
+                                            {item.orderStatus === '0' ?
+                                                (<div className='form-entry-left'>Completed Time: </div>) :
+                                                (<div className='form-entry-left'>Canceled Time: </div>)}
                                             <div className='form-entry-right'>{item.a_arrival}</div>
                                         </div>
                                         <div className="form-entry">
