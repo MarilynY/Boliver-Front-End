@@ -1,16 +1,11 @@
 import React from 'react';
-import {Popconfirm, Form, Input, Button, message, Skeleton, Card, Avatar, Spin} from 'antd';
+import { Form, Input, Button, message, Avatar, Spin, Switch } from 'antd';
 import { API_ROOT, TOKEN_KEY, AUTH_HEADER} from '../constants';
 import { Footer } from './Footer';
-import { CardBot } from './CardBot';
+import { SubmitOrder } from './SubmitOrder';
+import { Bilibili } from './Bilibili';
+//import { DeliveryOptions } from './DeliveryOptions';
 
-const { Meta } = Card;
-function confirm() {
-    message.info("I like you too");
-}
-function ohno() {
-  message.info("is that right.");
-}
 /** useful little tools
    <Spin spinning={this.state.spin} delay={500}></Spin>
 */
@@ -21,11 +16,15 @@ class SearchForm extends React.Component {
       this.state = {
         formItemLayout: { labelCol: { span: 4 }, wrapperCol: { span: 14 } },
         buttonItemLayout: { wrapperCol: { span: 14, offset: 4 } },
-        loading: true,
+        loading: false,
         visible: false,
         spin: false,
         confirmLoading: false,
         searchRes: null,
+        bilibiliStatus: false,
+        checked: false,
+        droneStatus: false,
+        groundStatus: false,
       };
     }
 
@@ -37,6 +36,7 @@ class SearchForm extends React.Component {
           if (!err) {
             console.log('Inputs for searchRoutes: ', values);
             this.setSpin();
+            this.setBilibili();
             //Fire API Call
             fetch(`${API_ROOT}/searchroute`, {
               method: 'POST',
@@ -60,11 +60,31 @@ class SearchForm extends React.Component {
                     spin: false,
                     searchRes: data ? data : null,
                   })
-                  message.success("success!")
+                  message.success("Both bots are available!", 5);
                   console.log(this.state.searchRes);
-                  
+                  if(data.GroundBot.avail_status === "no" && data.Drone.avail_status === "no"){
+                    //message.error("unfortunately, all bots are busy at the moment", 5)
+                  }else if(data.GroundBot.avail_status === "no"){
+                    //message.warning("unfortunately, all ground bots are busy at the moment", 5)
+                  }else if(data.Drone.avail_status === "no"){
+                    //message.warning("unfortunately, all droens are busy at the moment", 5)
+                    this.setState({
+                      groundStatus: true,
+                    })
+                  }else{
+                    message.success("Both bots are available!", 5)
+                    this.setState({
+                      groundStatus: true,
+                      droneStatus: true,
+                    })
+                    console.log(this.state.searchRes);
+                  }
               })
               .catch((e) => {
+                  this.setState({
+                    loading: true,
+                    spin: false,
+                  })
                   message.error("fail:(")
                   console.log(e)
               })
@@ -80,63 +100,21 @@ class SearchForm extends React.Component {
       this.setState({ spin: false });
     }
 
+    setBilibili = () => {
+      this.setState({ bilibiliStatus: true });
+    }
+
     deliveryOptions = () => {
-      const { searchRes, loading } = this.state;
+      const { searchRes, loading, droneStatus, groundStatus, } = this.state;
+      console.log("I am in deliveryOptions");
+      console.log({searchRes});
+      console.log(searchRes == null)
 
       if(searchRes == null){
         return(
-          <div className="divTable"><div className="divTableBody"><div className="divTableRow">
-          <div className="divTableCell">
-            <div className="cardLeft">
-              <Card className="CardLoading" actions={[
-                <Popconfirm 
-                  title={"So you like to roll?"} 
-                  onConfirm={confirm} 
-                  onCancel={ohno} 
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Button >Choose GroundBot</Button>
-                </Popconfirm>]}
-              > 
-                <Spin spinning={this.state.spin} delay={200}>
-                <Skeleton loading={loading} avatar active>
-                  <Meta
-                    avatar={<Avatar  src={require("../assets/images/groundBot.png" )} />}
-                    title="Card title"
-                    description=""
-                  />
-                </Skeleton>
-                </Spin>
-              </Card>
-            </div>
+          <div>
+            <Bilibili loading = {this.state.bilibiliStatus} />
           </div>
-          <div className="divTableCell">
-            <div className="cardRight">
-            <Card className="CardLoading" actions={[
-                <Popconfirm 
-                title={"So you like to fly?"} 
-                onConfirm={confirm} 
-                onCancel={ohno} 
-                okText="Yes"
-                cancelText="No"
-                >
-                  <Button >Choose Drone</Button>
-                </Popconfirm>]}
-              >
-                <Spin spinning={this.state.spin} delay={200}>
-                <Skeleton loading={loading} avatar active>
-                  <Meta
-                    avatar={<Avatar src={require("../assets/images/drone.jpg")} />}
-                    title="Card title"
-                    description=""
-                  />
-                </Skeleton>
-                </Spin>
-              </Card>
-            </div>
-          </div>
-          </div></div></div>
         )
       }else {
         return(
@@ -144,13 +122,14 @@ class SearchForm extends React.Component {
             <div className="divTableCell">
               <div className="cardLeft">
               <Spin spinning={this.state.spin} delay={200}>
-                <CardBot 
+                <SubmitOrder 
                   botResult = {searchRes.GroundBot} 
                   robotType = {"ground"} 
                   address = {searchRes.DeliveryAddress} 
                   cLoading = {loading}
                   botAvatar = {<Avatar src={require("../assets/images/groundBot.png")} />}
                   chooseButton = {"Choose GroundBot"} 
+                  status = {groundStatus}
                 />
               </Spin>
               </div>      
@@ -158,19 +137,43 @@ class SearchForm extends React.Component {
             <div className="divTableCell">
               <div className="cardRight">
               <Spin spinning={this.state.spin} delay={200}>
-                <CardBot 
+                <SubmitOrder 
                   botResult = {searchRes.Drone} 
                   robotType = {"drone"} 
                   address = {searchRes.DeliveryAddress}
                   botAvatar = {<Avatar src={require("../assets/images/drone.jpg")} />}
                   chooseButton = {"Choose Drone"}
+                  status = {droneStatus}
                 />
               </Spin>
               </div>
             </div>
           </div></div></div>
         )
+       }
+    }
+
+    handleClear = () => {
+      this.props.form.resetFields();
+      this.setState({
+        searchRes: null,
+        bilibiliStatus: false,
+      })
+    }    
+
+    Switching = (checked) => {
+      if(checked){
+        this.autoFill();
+      }else{
+        this.props.form.resetFields();
       }
+    }
+
+    autoFill = () => {
+      this.props.form.setFieldsValue({
+        origin: `3369 Mission St, San Francisco, CA 94110`,
+        destination: `448 Cortland Ave, San Francisco, CA 94110`,
+      });
     }
 
     render() {
@@ -198,13 +201,16 @@ class SearchForm extends React.Component {
                 </Form.Item>
                 <Form.Item {...buttonItemLayout}>
                   <div className="searchBtn">
-                    <Button type="primary" htmlType="submit" className="search-form-button" >Search</Button>
+                    <Switch className="autoFillSwitch" onChange={this.Switching} />
+                    <Button icon="search" type="primary" htmlType="submit" className="search-form-button-Search" >Search</Button>
+                    <Button className="search-form-button-Clear" onClick={this.handleClear}>Clear</Button>
                   </div>
                 </Form.Item>
               </Form>
             </div>
           </div>
           {this.deliveryOptions()}
+          {/* <DeliveryOptions res={this.state.searchRes} /> */}
           <Footer className="footer"/>
         </div>
       );

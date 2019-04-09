@@ -14,6 +14,7 @@ class CreateSenderReceiverForm extends React.Component {
 
    return (
      <Form>
+       <div className="senderInput">
        <FormItem {...formItemLayout} label="sender">
          {getFieldDecorator('sender', {
            rules: [{
@@ -32,6 +33,7 @@ class CreateSenderReceiverForm extends React.Component {
             />
          )}
        </FormItem>
+       </div>
        <FormItem {...formItemLayout} label="receiver">
          {getFieldDecorator('receiver', {
            rules: [{

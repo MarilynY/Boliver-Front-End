@@ -1,5 +1,38 @@
+.ant-modal-title{
+	font-family: cursive;
+}
+button.autoFillSwitch.ant-switch {
+    margin-right: 5%;
+}
+.ant-form-item-required::before{
+	color: white;
+}
 .searchBtn{
     text-align: right;
+}
+.bilibili{
+	padding-bottom: 50px;
+}
+.defaultCardBody{
+	height: 260px;
+}
+.search-form-button-Clear{
+	color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+
+.search-form-button-Search{
+	margin-right: 5%;
+}
+
+p {
+	font-family: inherit;
+	font-size: medium;
+}
+.meta {
+
+    text-align: left;
 }
 .divTable{
 	display: table;
