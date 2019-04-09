@@ -10,6 +10,7 @@
 @import 'styles/OrderHistory.css';
 @import 'styles/SearchRoutes.css';
 @import 'styles/CancelButton.css';
+@import 'styles/TrackTimeline.css';
 
 body {
   margin: 0;

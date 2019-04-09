@@ -7,7 +7,7 @@ export class Bilibili extends React.Component{
         if(loading){
             return(
                 <div className="bilibili">
-                    <img src={require('../assets/images/bilibiliLoad.gif')} alt="thinking..." />
+                    <img src={require('../assets/images/workHardLoading.gif')} alt="thinking..." />
                 </div>
             )
         }else{
