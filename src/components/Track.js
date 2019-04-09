@@ -105,8 +105,7 @@ export class Track extends React.Component {
                                         <b className="spacer1"></b>{item.origin} <br />
                                         <b>Ship to: </b> &nbsp; &nbsp; &nbsp;{item.receiver} <br /> 
                                         <b className="spacer2"></b>{item.destination} <br />
-                                        {/* <b>Ship &nbsp; &nbsp; &nbsp;to: </b>{item.receiver} <br /> 
-                                        <b className="spacer2"></b>{item.destination} <br /> */}
+                                        <b>Created at: </b>{item.create_time} <br /> 
                                     </div> 
                                 }
                                 />
