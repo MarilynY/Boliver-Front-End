@@ -2,7 +2,7 @@
 .App-header {
     background-image: url('../assets/images/background1.jpg');
     background-size: cover;
-    height: 380px;
+    height: 350px;
     border-bottom: 0.5rem solid #2B2A2A;
 }
 /* Company Logo */
@@ -10,7 +10,7 @@
    display: flex;
    flex-direction: row;
    padding-top: 10px;
-   padding-left: 500px;
+   padding-left: 470px;
    padding-right: 20px;
 }
 .App-logo img {
@@ -30,8 +30,8 @@
 .App-text {
     display: flex;
     flex-direction: column;
-    padding-left: 510px;
-    padding-top: 60px;
+    padding-left: 480px;
+    padding-top: 40px;
 }
 .Large-font {
     font-size: 2.2rem;

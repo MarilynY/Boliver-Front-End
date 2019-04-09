@@ -1,46 +1,120 @@
 import React from 'react';
-import { List, Avatar } from 'antd';
-import { Footer } from './Footer.js';
-//import { TOKEN_KEY, AUTH_HEADER, API_ROOT } from '../constants';
+import { List, Avatar, Spin } from 'antd';
+import { TOKEN_KEY, AUTH_HEADER, API_ROOT } from '../constants';
+import { TrackButton } from './TrackButton';
+import { CancelButton } from './CancelButton';
 
 export class Track extends React.Component {
-    
-    render() {
-       // const data = this.currentOrders();
-        const data = [
-            {
-              title: 'Ant Design Title 1',
-            },
-            {
-              title: 'Ant Design Title 2',
-            },
-            {
-              title: 'Ant Design Title 3',
-            },
-            {
-              title: 'Ant Design Title 4',
-            }
-          ];
-        return (
-          <div>
-            <div className="track">
-                <List className="list"
-                    itemLayout="horizontal"
-                    dataSource={data}
-                    renderItem={item => (
-                    <List.Item>
-                        <List.Item.Meta
-                        avatar={<Avatar src={require("../assets/images/imagebox.png")} alt="imagebox" />}
-                        title={<a href="https://ant.design">{item.title}</a>}
-                        description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                        />
-                    </List.Item>
+    state = {
+        error: '',
+        isLoadingCurrentOrders: true,
+        currentorders: [],
+    }
 
-                    )}
-                />
+    componentDidMount() {
+        this.loadCurrentOrders();
+    }
+    
+    loadCurrentOrders = () => {
+            
+            const token = localStorage.getItem(TOKEN_KEY);
+            // Fire API call
+            fetch(`${API_ROOT}/currentorder`, {
+                method: "GET",
+                headers: {
+                    Authorization: `${AUTH_HEADER} ${token}`
+                }
+            })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Fail to load current orders.");
+            })
+            .then((data) => {
+                this.setState({
+                    isLoadingCurrentOrders: false,
+                    currentorders: data ? data : [],
+                })
+                console.log(this.state.currentorders);
+            })
+            .catch((e) => {
+                this.setState({
+                    isLoadingCurrentOrders: false,
+                    error: e.message,
+                })
+                console.log(e);
+            })
+        
+    }
+
+
+    getCurrentOrders = () => {
+        const { error, currentorders, isLoadingCurrentOrders  } = this.state;
+
+        if (error) {
+            return error;
+        } else if (isLoadingCurrentOrders) {
+            return <Spin tip="Loading current orders ... " />;
+        } else if (currentorders && currentorders.length > 0) {
+            return (
+                 <div className="track" >
+                    <List className="list"
+                        itemLayout="horizontal"
+                        dataSource={currentorders}
+                        renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                avatar={<Avatar src={require("../assets/images/imagebox.png")} alt="imagebox" />}
+                                title={<div className="text1">Order ID:  {item.order_id}</div>}
+                                description={
+                                    <div>
+                                        {/* {item.orderStatus == 0 ? "Delivered" : "On the way" } */}
+                                        <b>Ship from: </b>{item.sender} <br />
+                                        <b className="spacer1"></b>{item.origin} <br />
+                                        <b>Ship &nbsp; &nbsp; &nbsp;to: </b>{item.receiver} <br /> 
+                                        <b className="spacer2"></b>{item.destination} <br />
+                                    </div>
+                                    
+                                    
+                                }
+                                />
+                                <TrackButton />
+                                <CancelButton currentorder={item}/>
+                            </List.Item>    
+                        )} 
+                    />
+                </div>
+            )
+        } else {
+            return "No History Orders.";
+        }
+    }
+
+    render() {
+       
+        return (
+            <div>
+                {this.getCurrentOrders()}
             </div>
-            <Footer className="footer"/>
-          </div>
         )
     }
 }
+
+
+
+
+
+/** 乔先森
+import { API_ROOT } from "../constants";
+import { getData, postData } from "./Fetch.js";
+export function fetchCurrentOrderList() {
+    let url = API_ROOT + "/currentorder";
+    return getData(url);
+}
+export function fetchTrackOrder(orderId) {
+    let url = API_ROOT + "/trackorder";
+    let data = { order_id: orderId }
+    return postData(url, data).then(res => console.log(res));
+}
+*/

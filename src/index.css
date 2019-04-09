@@ -9,6 +9,7 @@
 @import 'styles/Track.css';
 @import 'styles/OrderHistory.css';
 @import 'styles/SearchRoutes.css';
+@import 'styles/CancelButton.css';
 
 body {
   margin: 0;

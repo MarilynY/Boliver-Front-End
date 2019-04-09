@@ -5,14 +5,34 @@
     border-radius: 80px;
 }
 
+.ant-btn {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .track {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
     grid-gap: 20px;
     grid-auto-rows: minmax(100px, auto);
     grid-template-areas: 
-      ". . list list list . ."    
+      ". . list list list list . ."
+     
 }
 .list {
     grid-area: list;
+    text-align: left;
+}
+
+.text1 {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.spacer1 {
+    padding-left: 74px;
+}
+
+.spacer2 {
+    padding-left: 74px;
 }
