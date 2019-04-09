@@ -60,24 +60,32 @@ class SearchForm extends React.Component {
                     spin: false,
                     searchRes: data ? data : null,
                   })
-                  message.success("Both bots are available!", 5);
-                  console.log(this.state.searchRes);
-                  if(data.GroundBot.avail_status === "no" && data.Drone.avail_status === "no"){
-                    //message.error("unfortunately, all bots are busy at the moment", 5)
-                  }else if(data.GroundBot.avail_status === "no"){
-                    //message.warning("unfortunately, all ground bots are busy at the moment", 5)
-                  }else if(data.Drone.avail_status === "no"){
-                    //message.warning("unfortunately, all droens are busy at the moment", 5)
+                  if(data.GroundBot.avail_status === "yes" && data.Drone.avail_status === "yes"){
                     this.setState({
-                      groundStatus: true,
+                          groundStatus: true,
+                          droneStatus: true,
                     })
-                  }else{
                     message.success("Both bots are available!", 5)
+                  }
+                  else if(data.GroundBot.avail_status === "yes"){
                     this.setState({
                       groundStatus: true,
-                      droneStatus: true,
+                      droneStatus: false,
                     })
-                    console.log(this.state.searchRes);
+                    message.warning("unfortunately, all droens are busy at the moment", 5)
+                  }
+                  else if(data.Drone.avail_status === "yes"){
+                    this.setState({
+                      droneStatus: true,
+                      groundStatus: false,
+                    })
+                    message.warning("unfortunately, all ground bots are busy at the moment", 5)
+                  }else{
+                    this.setState({
+                      droneStatus: false,
+                      groundStatus: false,
+                    })
+                    message.error("unfortunately, all bots are busy at the moment", 5)
                   }
               })
               .catch((e) => {
@@ -105,7 +113,7 @@ class SearchForm extends React.Component {
     }
 
     deliveryOptions = () => {
-      const { searchRes, loading, droneStatus, groundStatus, } = this.state;
+      const { searchRes, loading, droneStatus, groundStatus } = this.state;
       console.log("I am in deliveryOptions");
       console.log({searchRes});
       console.log(searchRes == null)
