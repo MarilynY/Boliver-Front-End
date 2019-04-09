@@ -21,7 +21,7 @@ export class Home extends React.Component {
             <Tabs className="main-tabs" defaultActiveKey="1" onChange={callback}>
                 <TabPane className="wrapper" tab="Home" key="1">
                     <div className="box1">
-                        <img src={require('../assets/images/info1.jpg')} alt="info1" />   
+                        <img src={require('../assets/images/aboutus.jpg')} alt="info1" />   
                         <div className="blackblock">
                             <h2 className="title">About Us</h2>
                         </div>
@@ -34,10 +34,10 @@ export class Home extends React.Component {
                             and we’re pioneering an industry, not just a company.
                         </p>
                         
-                        <Button className="readmorebutton" href="http://www.fehrandpeers.com/drone-delivery/">Read More</Button>
+                        <Button className="readmorebutton" href="http://www.fehrandpeers.com/drone-delivery/" target="_blank">Read More</Button>
                     </div>
                     <div className="box2">
-                        <img src={require('../assets/images/info2.jpg')} alt="info2" />   
+                        <img src={require('../assets/images/groundBot.png')} alt="info2" />   
                         <div className="blackblock">
                             <h2 className="title">GroundRobot Delivers</h2>
                         </div>
@@ -51,10 +51,10 @@ export class Home extends React.Component {
                             cameras, inertial measuring devices, and  
                             occasionally LiDAR.  
                         </p>
-                        <Button className="readmorebutton" href="https://www.fastcompany.com/90291820/8-robots-racing-to-win-the-delivery-wars">Read More</Button> 
+                        <Button className="readmorebutton" href="https://www.fastcompany.com/90291820/8-robots-racing-to-win-the-delivery-wars" target="_blank">Read More</Button> 
                     </div>
                     <div className="box3">
-                        <img src={require('../assets/images/info3.png')} alt="info2" /> 
+                        <img src={require('../assets/images/drone.jpg')} alt="info2" /> 
                         <div className="blackblock">
                             <h2 className="title">Drone Delivers</h2>
                         </div>  
@@ -66,7 +66,7 @@ export class Home extends React.Component {
                             avoidance technology will allow the drones to avoid
                             crashing into objects or animals while in flight.
                         </p>
-                        <Button className="readmorebutton" href="https://www.araglegal.com/individuals/learning-center/topics/home-and-property/six-ways-drone-delivery-could-be-a-game-changer">Read More</Button>
+                        <Button className="readmorebutton" href="https://www.araglegal.com/individuals/learning-center/topics/home-and-property/six-ways-drone-delivery-could-be-a-game-changer" target="_blank">Read More</Button>
                     </div>
                     <Footer className="footer"/>
                 </TabPane>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Spin, List, Avatar, Empty, Collapse } from 'antd';
+import { Footer } from './Footer';
 import { TOKEN_KEY, API_ROOT, AUTH_HEADER } from '../constants.js';
 
 export class OrderHistory extends React.Component {
@@ -138,6 +139,7 @@ export class OrderHistory extends React.Component {
         return (
             <div>
                 {this.getHistoryOrders()}
+                <Footer className="footer"/>
             </div>
         )
     }

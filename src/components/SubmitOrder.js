@@ -62,7 +62,7 @@ export class SubmitOrder extends React.Component{
         )
       }else{
         return(
-          <img src={require('../assets/images/kickIt.gif')} alt="angry..." />
+          <img src={require('../assets/images/biliperopero.gif')} alt="peropero..." />
         )
       }
     }

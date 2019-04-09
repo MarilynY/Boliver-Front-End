@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Avatar, Spin } from 'antd';
 import { TOKEN_KEY, AUTH_HEADER, API_ROOT } from '../constants';
 import { TrackButton } from './TrackButton';
+import { Footer } from './Footer';
 import { CancelButton } from './CancelButton';
 
 export class Track extends React.Component {
@@ -92,6 +93,12 @@ export class Track extends React.Component {
                  <div className="track" >
                     <List className="list"
                         itemLayout="horizontal"
+                        pagination={{
+                            onChange: (page) => {
+                                console.log(page);
+                            },
+                            pageSize: 3,
+                        }}
                         dataSource={currentorders}
                         renderItem={item => (
                             <List.Item>
@@ -125,7 +132,8 @@ export class Track extends React.Component {
        
         return (
             <div>
-                {this.getCurrentOrders()}
+                <div>{this.getCurrentOrders()}</div>
+                <div className="TrackFooter"><Footer className="footer"/></div>
             </div>
         )
     }
