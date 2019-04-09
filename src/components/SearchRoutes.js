@@ -218,7 +218,6 @@ class SearchForm extends React.Component {
             </div>
           </div>
           {this.deliveryOptions()}
-          {/* <DeliveryOptions res={this.state.searchRes} /> */}
           <Footer className="footer"/>
         </div>
       );
