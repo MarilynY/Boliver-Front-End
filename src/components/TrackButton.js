@@ -45,6 +45,7 @@ export class TrackButton extends React.Component {
         .then((data) => {
             this.setState({ visible: false });
             this.props.loadCurrentOrders(); 
+            this.props.loadOrderHistory(); 
             message.success("Thank you for confirming your order!")
             console.log(data);
         })

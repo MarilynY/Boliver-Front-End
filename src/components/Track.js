@@ -9,10 +9,41 @@ export class Track extends React.Component {
         error: '',
         isLoadingCurrentOrders: true,
         currentorders: [],
+        orderHistoryData: []
     }
 
     componentDidMount() {
         this.loadCurrentOrders();
+    }
+
+    loadOrderHistory = () => {
+        const token = localStorage.getItem(TOKEN_KEY);
+        // Fire API call
+        fetch(`${API_ROOT}/orderhistory`, {
+            method: "GET",
+            headers: {
+                Authorization: `${AUTH_HEADER} ${token}`
+            }
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Fail to load posts.");
+            })
+            .then((data) => {
+                this.setState({
+                    isLoadingOrders: false,
+                    orderHistoryData: data ? data : [],
+                })
+                console.log(this.state.orders);
+            })
+            .catch((e) => {
+                this.setState({
+                    isLoadingOrders: false,
+                    error: e.message,
+                })
+            })
     }
     
     loadCurrentOrders = () => {
@@ -77,8 +108,8 @@ export class Track extends React.Component {
                                     </div> 
                                 }
                                 />
-                                <TrackButton currentorder={item} loadCurrentOrders={this.loadCurrentOrders}/>
-                                <CancelButton currentorder={item} loadCurrentOrders={this.loadCurrentOrders}/>
+                                <TrackButton currentorder={item} loadCurrentOrders={this.loadCurrentOrders} loadOrderHistory={this.loadOrderHistory}/>
+                                <CancelButton currentorder={item} loadCurrentOrders={this.loadCurrentOrders} loadOrderHistory={this.loadOrderHistory}/>
                             </List.Item>    
                         )} 
                     />
