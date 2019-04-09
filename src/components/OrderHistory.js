@@ -43,9 +43,9 @@ export class OrderHistory extends React.Component {
             })
     }
 
-    convertTime = (time) => {
-        return time.slice(0, 4) + '/' + time.slice(4, 6) + '/' + time.slice(6, 8) + ' ' + time.slice(8, 10) + ':' + time.slice(10, 12) + ':' + time.slice(12, 14)
-    }
+    // convertTime = (time) => {
+    //     return time.slice(0, 4) + '/' + time.slice(4, 6) + '/' + time.slice(6, 8) + ' ' + time.slice(8, 10) + ':' + time.slice(10, 12) + ':' + time.slice(12, 14)
+    // }
 
     getHistoryOrders = () => {
         const { error, orders, isLoadingOrders } = this.state;
@@ -96,7 +96,8 @@ export class OrderHistory extends React.Component {
                                     <Panel header="Detail" key="1">
                                         <div className="form-entry">
                                             <div className='form-entry-left'>Create Time:</div>
-                                            <div className='form-entry-right'>{this.convertTime(item.create_time)}</div>
+                                            {/* <div className='form-entry-right'>{this.convertTime(item.create_time)}</div> */}
+                                            <div className='form-entry-right'>{item.create_time}</div>
                                         </div>
                                         <div className="form-entry">
                                             <div className='form-entry-left'>Order Status:</div>
