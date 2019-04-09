@@ -1,6 +1,7 @@
 import React from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, message } from 'antd';
 import { TrackTimeline } from './TrackTimeline';
+import { TOKEN_KEY, AUTH_HEADER, API_ROOT } from '../constants';
 
 export class TrackButton extends React.Component {
     state = {
@@ -18,11 +19,41 @@ export class TrackButton extends React.Component {
     }
 
     handleConfirmOrder = () => {
+        const order_id  = this.props.currentorder.order_id; //只取一个元素，就不加{}
+        console.log(order_id);
+
         this.setState({ visible: false });
-
-        /**fire API -- confirmorder */
+        const token = localStorage.getItem(TOKEN_KEY);
+    
+        
+        // Fire API call - cancelorder
+        fetch(`${API_ROOT}/cancelorder`, {
+            method: "POST",
+            body: JSON.stringify({
+                order_id: order_id
+            }),
+            headers: {
+                Authorization: `${AUTH_HEADER} ${token}`
+            }
+        })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error("Fail to confirm order.");
+        })
+        .then((data) => {
+            this.setState({ visible: false });
+            this.props.loadCurrentOrders(); 
+            this.props.loadOrderHistory(); 
+            message.success("Thank you for confirming your order!")
+            console.log(data);
+        })
+        .catch((e) => {
+            this.setState({ visible: false });
+            console.log(e);
+        })
     }
-
     render() {
         const { visible } = this.state;
         return (
@@ -30,18 +61,34 @@ export class TrackButton extends React.Component {
             <Button type="primary" onClick={this.showModal}>
                 Track
             </Button>
-            <Modal
+            {this.props.currentorder.orderStatus === '0'  ? 
+                <Modal
+                    visible={visible}
+                    title="Your Order Status:" //or put order Id
+                    onCancel={this.handleClose}
+                    footer={[
+                        <Button key="back" onClick={this.handleClose}>Close</Button>,
+                        <Button key="confirm" onClick={this.handleConfirmOrder}>Comfirm Order</Button>,
+                    ]}
+                >
+                    <TrackTimeline currentorder={this.props.currentorder}/>
+                    
+                    
+                </Modal> : 
+
+                <Modal
                 visible={visible}
                 title="Your Order Status:" //or put order Id
                 onCancel={this.handleClose}
                 footer={[
                     <Button key="back" onClick={this.handleClose}>Close</Button>,
-                    <Button key="confirm" onClick={this.handleConfirmOrder}>Comfirm Order</Button>,
+                    // <Button key="confirm" onClick={this.handleConfirmOrder}>Comfirm Order</Button>,
                 ]}
-            >
-                <TrackTimeline />
-                
-            </Modal>
+                >
+                <TrackTimeline currentorder={this.props.currentorder}/>
+
+                </Modal> 
+            }
             </div>
         );
     }

@@ -7,6 +7,7 @@ import {
 import { API_ROOT } from '../constants';
   
   class NormalLoginForm extends React.Component {
+
     handleSubmit = (e) => {
       e.preventDefault();
       this.props.form.validateFields((err, values) => {
@@ -27,8 +28,8 @@ import { API_ROOT } from '../constants';
             })
             .then ((response) => { 
                 message.success("Login Success!")
+                console.log(response)
                 const token = JSON.parse(response)["access_token"];
-                // console.log("token:"+token);
                 this.props.handleLogin(token);
             })
             .catch((err) => { 

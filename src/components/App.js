@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { TopBar } from './TopBar';
-
 import { Main } from './Main';
-import { TOKEN_KEY } from '../constants';
+import { TOKEN_KEY,AUTH_HEADER, API_ROOT } from '../constants';
 
 class App extends Component {
 
@@ -13,13 +12,21 @@ class App extends Component {
   //callback function 1
   handleLogin = (token) => {
     this.setState({ isLoggedIn: true });
-    localStorage.setItem(TOKEN_KEY, token)
+    localStorage.setItem(TOKEN_KEY, token);
   }
 
   //callback function 2
   handleLogout = () => {
-    this.setState({ isLoggedIn: false })
-    localStorage.removeItem(TOKEN_KEY)
+    this.setState({ isLoggedIn: false });
+    const token = localStorage.getItem(TOKEN_KEY);
+    // Fire API call
+    fetch(`${API_ROOT}/logout`, {
+        method: "GET",
+        headers: {
+            Authorization: `${AUTH_HEADER} ${token}`
+        }
+    })
+    localStorage.removeItem(TOKEN_KEY);
   }
 
 

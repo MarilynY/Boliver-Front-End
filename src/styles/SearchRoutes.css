@@ -1,0 +1,92 @@
+.ant-modal-title{
+	font-family: cursive;
+}
+button.autoFillSwitch.ant-switch {
+    margin-right: 5%;
+}
+.ant-form-item-required::before{
+	color: white;
+}
+.searchBtn{
+    text-align: right;
+}
+.bilibili{
+	padding-bottom: 50px;
+}
+.defaultCardBody{
+	height: 260px;
+}
+.search-form-button-Clear{
+	color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+}
+
+.search-form-button-Search{
+	margin-right: 5%;
+}
+
+p {
+	font-family: inherit;
+	font-size: medium;
+}
+.meta {
+
+    text-align: left;
+}
+.divTable{
+	display: table;
+	width: 100%;
+	padding-bottom: 2%;
+}
+.divTableRow {
+	display: table-row;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+	border: 0px solid #999999;
+	display: table-cell;
+	padding: 3px 10px;
+}
+.divTableHeading {
+	background-color: #EEE;
+	display: table-header-group;
+	font-weight: bold;
+}
+.divTableFoot {
+	background-color: #EEE;
+	display: table-footer-group;
+	font-weight: bold;
+}
+.divTableBody {
+	display: table-row-group;
+}
+.PlaceOrderUI{
+    width: 100%;
+	margin: auto;
+	
+}
+.Card{
+    width: 100%;
+    margin-top: 16px;
+}
+.CardLoading{
+    width: 436px;
+    margin-top: 16px;
+}
+.SearchFormWrapper{
+	padding-left: 10%;
+	padding-right: 10%;
+}
+.SearchForm{
+	padding-left: 14%;
+}
+.cardLeft{
+	float:right;
+}
+.cardRight{
+	float:left;
+}

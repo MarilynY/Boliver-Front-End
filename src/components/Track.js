@@ -2,6 +2,7 @@ import React from 'react';
 import { List, Avatar, Spin } from 'antd';
 import { TOKEN_KEY, AUTH_HEADER, API_ROOT } from '../constants';
 import { TrackButton } from './TrackButton';
+import { Footer } from './Footer';
 import { CancelButton } from './CancelButton';
 
 export class Track extends React.Component {
@@ -9,10 +10,41 @@ export class Track extends React.Component {
         error: '',
         isLoadingCurrentOrders: true,
         currentorders: [],
+        orderHistoryData: []
     }
 
     componentDidMount() {
         this.loadCurrentOrders();
+    }
+
+    loadOrderHistory = () => {
+        const token = localStorage.getItem(TOKEN_KEY);
+        // Fire API call
+        fetch(`${API_ROOT}/orderhistory`, {
+            method: "GET",
+            headers: {
+                Authorization: `${AUTH_HEADER} ${token}`
+            }
+        })
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error("Fail to load posts.");
+            })
+            .then((data) => {
+                this.setState({
+                    isLoadingOrders: false,
+                    orderHistoryData: data ? data : [],
+                })
+                console.log(this.state.orders);
+            })
+            .catch((e) => {
+                this.setState({
+                    isLoadingOrders: false,
+                    error: e.message,
+                })
+            })
     }
     
     loadCurrentOrders = () => {
@@ -58,9 +90,15 @@ export class Track extends React.Component {
             return <Spin tip="Loading current orders ... " />;
         } else if (currentorders && currentorders.length > 0) {
             return (
-                 <div className="track" >
+                 <div className="track" >
                     <List className="list"
                         itemLayout="horizontal"
+                        pagination={{
+                            onChange: (page) => {
+                                console.log(page);
+                            },
+                            pageSize: 3,
+                        }}
                         dataSource={currentorders}
                         renderItem={item => (
                             <List.Item>
@@ -72,15 +110,14 @@ export class Track extends React.Component {
                                         {/* {item.orderStatus == 0 ? "Delivered" : "On the way" } */}
                                         <b>Ship from: </b>{item.sender} <br />
                                         <b className="spacer1"></b>{item.origin} <br />
-                                        <b>Ship &nbsp; &nbsp; &nbsp;to: </b>{item.receiver} <br /> 
+                                        <b>Ship to: </b> &nbsp; &nbsp; &nbsp;{item.receiver} <br /> 
                                         <b className="spacer2"></b>{item.destination} <br />
-                                    </div>
-                                    
-                                    
+                                        <b>Created at: </b>{item.create_time} <br /> 
+                                    </div> 
                                 }
                                 />
-                                <TrackButton />
-                                <CancelButton currentorder={item}/>
+                                <TrackButton currentorder={item} loadCurrentOrders={this.loadCurrentOrders} loadOrderHistory={this.loadOrderHistory}/>
+                                <CancelButton currentorder={item} loadCurrentOrders={this.loadCurrentOrders} loadOrderHistory={this.loadOrderHistory}/>
                             </List.Item>    
                         )} 
                     />
@@ -95,7 +132,8 @@ export class Track extends React.Component {
        
         return (
             <div>
-                {this.getCurrentOrders()}
+                <div>{this.getCurrentOrders()}</div>
+                <div className="TrackFooter"><Footer className="footer"/></div>
             </div>
         )
     }
