@@ -66,7 +66,8 @@ export class SubmitOrder extends React.Component{
         )
       }
     }
-  
+    
+    // Submitting/Placing order! 
     handleOk = () => {
       this.form.validateFields((err, values) => {
         if(!err){
@@ -189,7 +190,6 @@ export class SubmitOrder extends React.Component{
           >           
                 <Skeleton loading={this.props.cLoading} avatar active>
                   {this.showAlert()};
-                  {/* <img src={require('../assets/images/unavailable.gif')} alt="sad..." /> */}
                   {this.BilibiliNoBot()};
                 </Skeleton>
           </Card>

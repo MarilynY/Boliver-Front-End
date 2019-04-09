@@ -5,10 +5,6 @@ import { Footer } from './Footer';
 import { SubmitOrder } from './SubmitOrder';
 import { Bilibili } from './Bilibili';
 
-/** useful little tools
-   <Spin spinning={this.state.spin} delay={500}></Spin>
-*/
-
 class SearchForm extends React.Component {
     constructor() {
       super();
@@ -25,6 +21,41 @@ class SearchForm extends React.Component {
         droneStatus: false,
         groundStatus: false,
       };
+    }
+
+    setSpin = () => {
+      this.setState({ spin: true });
+    }
+
+    offSpin = () => {
+      this.setState({ spin: false });
+    }
+
+    setBilibili = () => {
+      this.setState({ bilibiliStatus: true });
+    }
+
+    handleClear = () => {
+      this.props.form.resetFields();
+      this.setState({
+        searchRes: null,
+        bilibiliStatus: false,
+      })
+    }    
+
+    Switching = (checked) => {
+      if(checked){
+        this.autoFill();
+      }else{
+        this.props.form.resetFields();
+      }
+    }
+
+    autoFill = () => {
+      this.props.form.setFieldsValue({
+        origin: `3138 Noriega St, San Francisco, CA 94122`,
+        destination: `1916 Irving St, San Francisco, CA 94122`,
+      });
     }
 
     handleSubmit = (e) => {
@@ -99,18 +130,7 @@ class SearchForm extends React.Component {
         });
     }
 
-    setSpin = () => {
-      this.setState({ spin: true });
-    }
-
-    offSpin = () => {
-      this.setState({ spin: false });
-    }
-
-    setBilibili = () => {
-      this.setState({ bilibiliStatus: true });
-    }
-
+    // Display Cards
     deliveryOptions = () => {
       const { searchRes, loading, droneStatus, groundStatus } = this.state;
       console.log("I am in deliveryOptions");
@@ -158,29 +178,6 @@ class SearchForm extends React.Component {
           </div></div></div>
         )
        }
-    }
-
-    handleClear = () => {
-      this.props.form.resetFields();
-      this.setState({
-        searchRes: null,
-        bilibiliStatus: false,
-      })
-    }    
-
-    Switching = (checked) => {
-      if(checked){
-        this.autoFill();
-      }else{
-        this.props.form.resetFields();
-      }
-    }
-
-    autoFill = () => {
-      this.props.form.setFieldsValue({
-        origin: `3138 Noriega St, San Francisco, CA 94122`,
-        destination: `1916 Irving St, San Francisco, CA 94122`,
-      });
     }
 
     render() {
