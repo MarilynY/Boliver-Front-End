@@ -1,9 +1,24 @@
 import React from 'react';
-import { Form, Icon, Input, Tooltip } from 'antd';
+import { Form, Icon, Input, Tooltip, Switch } from 'antd';
 
 const FormItem = Form.Item;
 
 class CreateSenderReceiverForm extends React.Component {
+
+  Switching = (checked) => {
+    if(checked){
+      this.autoFill();
+    }else{
+      this.props.form.resetFields();
+    }
+  }
+
+  autoFill = () => {
+    this.props.form.setFieldsValue({
+      sender: `eva`,
+      receiver: `wall-e`,
+    });
+  }
 
  render() {
    const { getFieldDecorator } = this.props.form;
@@ -15,7 +30,7 @@ class CreateSenderReceiverForm extends React.Component {
    return (
      <Form>
        <div className="senderInput">
-       <FormItem {...formItemLayout} label="sender">
+       <FormItem {...formItemLayout} >
          {getFieldDecorator('sender', {
            rules: [{
              required: true,
@@ -34,7 +49,7 @@ class CreateSenderReceiverForm extends React.Component {
          )}
        </FormItem>
        </div>
-       <FormItem {...formItemLayout} label="receiver">
+       <FormItem {...formItemLayout} >
          {getFieldDecorator('receiver', {
            rules: [{
              required: true,
@@ -51,6 +66,9 @@ class CreateSenderReceiverForm extends React.Component {
                 }
             />
          )}
+       </FormItem>
+       <FormItem>
+        <Switch className="autoFillSwitch" onChange={this.Switching} />
        </FormItem>
      </Form>
    );

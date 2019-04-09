@@ -4,7 +4,6 @@ import { API_ROOT, TOKEN_KEY, AUTH_HEADER} from '../constants';
 import { Footer } from './Footer';
 import { SubmitOrder } from './SubmitOrder';
 import { Bilibili } from './Bilibili';
-//import { DeliveryOptions } from './DeliveryOptions';
 
 /** useful little tools
    <Spin spinning={this.state.spin} delay={500}></Spin>
@@ -179,8 +178,8 @@ class SearchForm extends React.Component {
 
     autoFill = () => {
       this.props.form.setFieldsValue({
-        origin: `3369 Mission St, San Francisco, CA 94110`,
-        destination: `448 Cortland Ave, San Francisco, CA 94110`,
+        origin: `3138 Noriega St, San Francisco, CA 94122`,
+        destination: `1916 Irving St, San Francisco, CA 94122`,
       });
     }
 

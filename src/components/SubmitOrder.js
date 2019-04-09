@@ -18,6 +18,54 @@ export class SubmitOrder extends React.Component{
           ganbeiStatus: false, 
         };
     }
+
+    handleCancel = () => {
+      console.log('Clicked cancel button');
+      this.form.resetFields();
+      this.setState({
+          visible: false,
+          
+      });
+    }
+
+    showModal = () => {
+      this.setState({
+        visible: true,
+      });
+    }
+
+    saveFormRef = (formInstance) => {
+      this.form = formInstance;
+    }
+
+    showAlert = () => {
+      return(
+        <Alert message="Sorry, we're all busy atm, try later!" 
+          type="error" 
+          showIcon
+          closable 
+          banner 
+        />
+      )
+    }
+
+    onClose = () => {
+      this.setState({
+        ganbeiStatus: false,
+      })
+    };
+
+    BilibiliNoBot = () => {
+      if(this.props.robotType === "ground"){
+        return(          
+            <img src={require('../assets/images/unavailable.gif')} alt="sad..." />
+        )
+      }else{
+        return(
+          <img src={require('../assets/images/kickIt.gif')} alt="angry..." />
+        )
+      }
+    }
   
     handleOk = () => {
       this.form.validateFields((err, values) => {
@@ -77,37 +125,7 @@ export class SubmitOrder extends React.Component{
         }
       });
     }
-  
-    handleCancel = () => {
-      console.log('Clicked cancel button');
-      this.form.resetFields();
-      this.setState({
-          visible: false,
-          
-      });
-    }
-
-    showModal = () => {
-      this.setState({
-        visible: true,
-      });
-    }
-
-    saveFormRef = (formInstance) => {
-      this.form = formInstance;
-    }
-
-    showAlert = () => {
-      return(
-        <Alert message="Sorry, we're all busy atm, try later!" 
-          type="error" 
-          showIcon
-          closable 
-          banner 
-        />
-      )
-    }
-    
+      
     CardDisplay = () => {
       console.log("can you see me?");
       const { visible, confirmLoading } = this.state;
@@ -139,7 +157,7 @@ export class SubmitOrder extends React.Component{
                     <p><b>cost: </b>{cost}</p>
                   </div>
                 <SenRecForm ref={this.saveFormRef}/>
-
+                
                 </Modal>                 
                 <Skeleton loading={this.props.cLoading} avatar active>
                   <Meta
@@ -171,7 +189,8 @@ export class SubmitOrder extends React.Component{
           >           
                 <Skeleton loading={this.props.cLoading} avatar active>
                   {this.showAlert()};
-                  <img src={require('../assets/images/unavailable.gif')} alt="sad..." />
+                  {/* <img src={require('../assets/images/unavailable.gif')} alt="sad..." /> */}
+                  {this.BilibiliNoBot()};
                 </Skeleton>
           </Card>
         </div>
@@ -181,8 +200,8 @@ export class SubmitOrder extends React.Component{
     render() {
         return (
           <div>
-            <BilibiliGanBei status={this.state.ganbeiStatus} />
-            {this.CardDisplay()}}
+            <BilibiliGanBei status={this.state.ganbeiStatus} onClose={this.onClose} />
+            {this.CardDisplay()}
           </div>           
         )
     }

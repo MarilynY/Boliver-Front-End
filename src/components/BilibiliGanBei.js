@@ -3,17 +3,16 @@ import { Drawer } from 'antd';
 
 export class BilibiliGanBei extends React.Component {
   state = {
-    //visible : this.props.status,
+    visible : this.props.status,
   }
   
-
   onClose = () => {
-    this.setState({
-      visible: false,
-    })
-  };
+    return( this.props.onClose )
+  }
+
 
   render() {
+    console.log(this.state.visible);
 
     return (
       <div>
@@ -21,7 +20,7 @@ export class BilibiliGanBei extends React.Component {
           title="Thanks for using our service!"
           placement="right"
           closable={true}
-          onClose={this.onClose}
+          onClose={this.onClose()}
           visible={this.props.status}
         >
         <img src={require('../assets/images/ganbei.gif')} alt="哔哩哔哩 干杯！" />
