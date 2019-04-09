@@ -83,7 +83,6 @@ export class Home extends React.Component {
                 </TabPane>
                 <TabPane tab="History" key="4">
                     <OrderHistory />
-               
                 </TabPane>
             </Tabs>
 
