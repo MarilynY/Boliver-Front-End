@@ -1,7 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, message, Avatar, Spin, Switch } from 'antd';
 import { API_ROOT, TOKEN_KEY, AUTH_HEADER } from '../constants';
-import { Footer } from './Footer';
 import { SubmitOrder } from './SubmitOrder';
 import { Bilibili } from './Bilibili';
 
@@ -216,7 +215,6 @@ class SearchForm extends React.Component {
           </div>
         </div>
         {this.deliveryOptions()}
-        <Footer className="footer" />
       </div>
     );
   }

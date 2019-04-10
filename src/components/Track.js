@@ -1,7 +1,6 @@
 import React from 'react';
 import { List, Avatar, Spin } from 'antd';
 import { TrackButton } from './TrackButton';
-import { Footer } from './Footer';
 import { CancelButton } from './CancelButton';
 
 export class Track extends React.Component {
@@ -62,7 +61,7 @@ export class Track extends React.Component {
         return (
             <div>
                 <div>{this.getCurrentOrders()}</div>
-                <div className="TrackFooter"><Footer className="footer" /></div>
+                <div className="TrackFooter"></div>
             </div>
         )
     }

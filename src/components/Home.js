@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tabs, Button } from 'antd';
-import { Footer } from './Footer.js';
 import { Track } from './Track.js';
 import { CreateSearchForm } from './CreateSearchForm.js';
 import { OrderHistory } from './OrderHistory';
@@ -139,7 +138,6 @@ export class Home extends React.Component {
                         </p>
                         <Button className="readmorebutton" href="https://www.araglegal.com/individuals/learning-center/topics/home-and-property/six-ways-drone-delivery-could-be-a-game-changer" target="_blank">Read More</Button>
                     </div>
-                    <Footer className="footer" />
                 </TabPane>
 
                 <TabPane tab="Ship" key="2">
